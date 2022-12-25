@@ -1,0 +1,21 @@
+.clonnedItem {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.tableIcon {
+    cursor: pointer;
+    font-size: 18px;
+ }
+ .tableIcon1 {
+   cursor: pointer;
+   
+}
+ .tableIcon:hover,
+ .tableIcon1:hover {
+    transform: scale(1.1);
+ }
+ .tableIcon:active,
+ .tableIcon1:active {
+    transform: translateY(-1px);
+ }

@@ -1,0 +1,92 @@
+.mainTab {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #f1f1f1;
+    border: 1px solid rgba(0, 0, 0, 0.274);
+}
+.bloc-tabs {
+    display: flex;
+}
+
+.tabs {
+
+    padding: 15px;
+    width: 50%;
+    background: rgba(128, 128, 128, 0.075);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+    box-sizing: content-box;
+    position: relative;
+}
+
+.tabs:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.active-tabs {
+    background: white;
+    border-bottom: 1px solid transparent;
+}
+
+.active-tabs::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 2px);
+    height: 3px;
+    background: rgb(88, 147, 241);
+}
+
+
+
+button {
+    border: none;
+
+}
+
+.content-tabs {
+    flex-grow: 1;
+}
+
+.contents {
+    background: white;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.contents h2 {
+    padding: 0px 0 5px 0px;
+}
+
+.contents hr {
+    width: 100px;
+    height: 2px;
+    background: #222;
+    margin-bottom: 5px;
+}
+
+.contents p {
+    width: 100%;
+    height: 100%;
+}
+
+.active-content {
+    display: block;
+}
+
+.iconTab{
+    font-size: 30px;
+    color: #0099ff;
+    margin-right: 5px;
+}
+
+.bloc-tabs h4{
+    transform: translateY(5px);
+    margin-left:5px ;
+}

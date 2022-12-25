@@ -1,0 +1,50 @@
+.sorting{
+    width: 50%;
+}
+.w-45{
+    width: 45% !important;
+}
+.main {
+    border-radius: 10px;
+    border: solid 2px #9cb1b9;
+}
+.putusers{
+    min-height: 38px;
+}
+.setusers{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px 8px;
+    position: relative;
+    overflow: hidden;
+}
+.allUsers {
+    margin: 4px;
+}
+.userContent{
+    border-radius: 23px;
+    color: white;
+    font-size: 85%;
+    overflow: hidden;
+    padding: 8px 5px 8px 10px;
+    margin-top: 3px;
+    margin-right: 10px;
+    background-color: #a7b1ff;
+}
+.removeUser {
+    padding-left: 10px;
+    padding-right: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+label > span {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.ml-2{
+    margin-left: 10px;
+}

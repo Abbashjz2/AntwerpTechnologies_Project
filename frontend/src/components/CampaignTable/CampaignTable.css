@@ -1,0 +1,39 @@
+.sortCamp{
+   width: max-content;
+}
+
+table{
+   user-select: none;
+}
+
+table th,
+table td {
+	padding: 10px;
+	text-align: left;
+	min-width: 150px;
+}
+
+.searchBar{
+   width: 85%;
+}
+
+.searchBar:focus{ 
+   border: 1px solid #0099ff !important;
+}
+.searchBar:visited{
+   border: 1px solid #0099ff !important;
+}
+.searchBar:active{
+   border: 1px solid #0099ff !important;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+   text-align: center;
+}
+tbody tr th:first-child{
+   text-align: left;
+}
+
+.itemPerPage{
+   width: max-content;
+}

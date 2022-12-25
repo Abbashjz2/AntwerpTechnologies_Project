@@ -1,0 +1,54 @@
+.fabtn {
+    cursor: pointer;
+    user-select: none;
+}
+
+.fabtn:hover {
+    color: #0099ff;
+    scale: 1.02;
+}
+
+.fabtn:active {
+    transform: translateY(-1px);
+}
+
+
+
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.avatar-li{
+    list-style: none;
+    border: 1px solid #000;
+    min-width:110px;
+    font-weight: bold;
+    text-align: center;
+    padding: 6px 10px;
+    background-color:lightgrey;
+    cursor: pointer;
+}
+.avatar-li:hover{
+    background-color: #0099ff;
+    color: #fff;
+}
+.avatar-ul{
+    position: absolute;
+    list-style: none;
+    all: unset;
+    margin-top: 5px;
+}
+.avatar-div{
+    top: 35px;
+    right: 15px;
+    z-index: 999;
+}
+
+.iconHeader{
+    margin-top: -2px;
+    font-size: 20px;
+}
