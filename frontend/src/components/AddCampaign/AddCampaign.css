@@ -48,3 +48,10 @@ label > span {
 .ml-2{
     margin-left: 10px;
 }
+
+.btn:hover{
+    transform: scale(0.99);
+}
+.btn:active{
+    transform: translateY(2px);
+}

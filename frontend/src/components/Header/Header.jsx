@@ -52,7 +52,7 @@ const Header = () => {
                 {/* <button onClick={onLogOut} className='btn btn-primary rounded'><FaSignOutAlt/> Logout</button> */}
                 <div className='d-flex align-items-center' style={{cursor:'pointer'}} onClick={() => setDropDown(!dropdown)}>
                     <div className='px-3 mt-2'><h4>{user.name}</h4></div>
-                <img src={`http://localhost:5000/${imagePath}`}  className='avatar' />
+                <img src= {imagePath ? `http://localhost:5000/${imagePath}` : Avatar}  className='avatar' />
                 </div>
                 {dropdown && <div className='avatar-div position-absolute'>
                 <ul className='avatar-ul w-100 d-flex flex-column justify-content-center align-items-center'>
