@@ -3,10 +3,11 @@ import {Chart as ChartJS} from 'chart.js/auto'
 import './Dashboard.css'
 import { useMemo, useState } from 'react';
 import { useEffect } from 'react';
-import { userRequest } from '../../CustomRequest';
+import { TOKEN } from '../../CustomRequest';
 import Chart from '../Chart/Chart';
+import axios from 'axios';
 
-const Dashboard = ({chartData,grid}) => {
+const Dashboard = ({chartData}) => {
   const [userStats, setUserStats] = useState([]);
 
   const MONTHS = useMemo(
@@ -27,9 +28,14 @@ const Dashboard = ({chartData,grid}) => {
     []
   );
   useEffect(() => {
+    let config = { 
+      headers: {
+        'Authorization': 'Bearer ' + TOKEN  
+      }
+    }
         const getStats = async () => {
       try {
-        const res = await userRequest.get("/stats");
+        const res = await axios.get("http://localhost:5000/api/campaign/stats", config);
         res.data.map((item) =>
           setUserStats((prev) => [
             ...prev,

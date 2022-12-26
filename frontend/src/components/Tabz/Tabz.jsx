@@ -21,10 +21,11 @@ function Tabz() {
     const [num1, setNum1] = useState('')
     const [num2, setNum2] = useState('')
     const [num3, setNum3] = useState('')
-    let inc = 0;
-    let inc1 = 0;
-    let inc2 = 0;
+
     const evaluate = () => {
+        let inc = 0;
+        let inc1 = 0;
+        let inc2 = 0;
        campaigns.map((item) => {
             if (item.type === 'Marketing') {
                 inc++;
@@ -78,7 +79,7 @@ function Tabz() {
 
             {user && <div>
                 <Header />
-                <div className="mainTab">
+                <div className="mainTab mwidth">
                     <div className="bloc-tabs">
                         <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>
                             <div className="d-flex justify-content-center align-items-center">

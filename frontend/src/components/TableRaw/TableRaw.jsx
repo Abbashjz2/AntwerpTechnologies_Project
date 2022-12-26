@@ -36,7 +36,10 @@ const TableRaw = ({ data }) => {
             newItem
         }
         dispatch(updateCampaign(itemTosend))
-        dispatch(createCampaign(itemCloned))
+
+        setTimeout(() => {
+            dispatch(createCampaign(itemCloned))
+        }, 1000);
     }
     const cloneClonned = () => {
         if(data.name.includes('COPY of')){

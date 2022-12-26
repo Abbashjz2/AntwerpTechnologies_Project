@@ -99,14 +99,14 @@ const CampaignTable = () => {
     <div>
       <div className='d-flex justify-content-between align-items-center'>
         <input className="form-control me-2 w-50" type="text" placeholder="Search" onChange={search} value={searchCampaign} />
-        <select class="form-select w-25" aria-label="Default select example" onChange={sortType}>
+        <select className="form-select w-25" aria-label="Default select example" onChange={sortType}>
           <option defaultValue disabled >Choose Type</option>
           <option value="All" >All</option>
           <option value="Marketing">Marketing</option>
           <option value="Educational">Educational</option>
           <option value="Governmental">Governmental</option>
         </select>
-        <select class="form-select itemPerPage mx-2" onChange={(e)=> setCampaignPerPage(e.target.value)}>
+        <select className="form-select itemPerPage mx-2" onChange={(e)=> setCampaignPerPage(e.target.value)}>
           <option defaultValue value="25">25</option>
           <option value="50">50</option>
           <option value="100">100</option>

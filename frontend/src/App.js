@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Tabz from './components/Tabz/Tabz';
 import Profile from './pages/Profile/Profile';
 import SingleCampaign from './pages/SingleCampaign/SingleCampaign';
+import UserPorfile from './pages/UserPorfile/UserPorfile';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route path ='/campaign' element={<Tabz />} />
         <Route path ='/profile' element={<Profile />} />
         <Route path ='/singlecampagin/:id' element={<SingleCampaign />} />
+        <Route path ='/userinfo/:id' element={<UserPorfile />} />
 
       </Routes>
     </div>

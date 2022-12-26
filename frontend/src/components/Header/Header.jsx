@@ -38,7 +38,7 @@ const Header = () => {
     return (
         
         <>
-        <div className='d-flex justify-content-between w-100 navbar bg-light p-3'>
+        <div className='d-flex justify-content-between w-100 navbar bg-light p-3 mwidth'>
             
             <div className='p-2' onClick={() => navigate('/campaign')} style={{cursor:'pointer'}}>
                 <img src={Logo} width={200}/>

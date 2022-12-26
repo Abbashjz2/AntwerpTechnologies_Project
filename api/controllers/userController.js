@@ -13,13 +13,15 @@ const fileSizeFormatter = (bytes, decimal) => {
     return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
 
 }
+const findUser = asyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.params.id })
+    res.status(200).json(user)
+})
+
 const getAll = asyncHandler(async (req, res) => {
     const users = await User.find()
     res.status(200).json(users)
 })
-
-
-
 const registerUser = asyncHandler(async (req, res) => {
 
     const { name, email, password, gender, company } = req.body
@@ -105,7 +107,6 @@ const updateUsers = asyncHandler(async (req, res) => {
             file: req.file.path,
             token: generateToken(user._id)
         }
-        console.log(req.file);
         const itemToData = {
             name,
             gender,
@@ -121,9 +122,7 @@ const updateUsers = asyncHandler(async (req, res) => {
         }
         const updatedUser = await User.findByIdAndUpdate(req.params.id, itemToData, { new: true })
         res.status(200).json( newItem)
-        console.log("object");
-    }
-    
+    }  
     else if (!req.file && user.file) {
         const newItem = {
             _id: user.id,
@@ -182,5 +181,6 @@ module.exports = {
     registerUser,
     loginUser,
     getAll,
-    updateUsers
+    updateUsers,
+    findUser
 }

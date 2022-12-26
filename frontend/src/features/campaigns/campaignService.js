@@ -4,20 +4,17 @@ const API_URL = 'http://localhost:5000/api/campaign/'
 
 // create new goal
 const createCampaign = async (campaignData, token) => {
-  console.log("first")
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       }, 
     }
     const response = await axios.post(API_URL, campaignData, config)
-    console.log(response)
     return response.data
   }
   const updateCampaign = async (campaignData, token) => {
     const id = campaignData.id
     const data = campaignData.newItem
-    console.log(id,data);
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

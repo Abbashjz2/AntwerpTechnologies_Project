@@ -5,14 +5,6 @@
 table{
    user-select: none;
 }
-
-table th,
-table td {
-	padding: 10px;
-	text-align: left;
-	min-width: 150px;
-}
-
 .searchBar{
    width: 85%;
 }
@@ -32,6 +24,13 @@ table td {
 }
 tbody tr th:first-child{
    text-align: left;
+}
+
+tbody > tr:nth-child(even){
+   border-bottom: 1px solid #000;
+}
+tbody > tr:nth-child(odd){
+   border-bottom: 1px solid #0099ff;
 }
 
 .itemPerPage{

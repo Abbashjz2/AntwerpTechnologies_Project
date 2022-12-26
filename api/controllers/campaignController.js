@@ -9,12 +9,9 @@ const getCampaigns = asyncHandler(async (req, res) => {
 })
 
 const getCampagin = asyncHandler(async (req, res) => {
-    console.log("first")
-    console.log(req.params.id)
     const campaign = await Campaign.findOne({ _id: req.params.id })
 
     res.status(200).json(campaign)
-    console.log(campaign);
 })
 
 const setCampaign = asyncHandler(async (req, res) => {
@@ -61,13 +58,11 @@ const updateCampaign = asyncHandler(async (req, res) => {
         res.status(401)
         throw new Error('User not found')
     }
-
-    if (campaign.user.toString() !== req.user.id) {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
     const updatedCampaign = await Campaign.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    res.status(200).json(updatedCampaign)
+    res.status(200).json({
+        newCmapaign : updatedCampaign,
+        campaignId: req.params.id
+    })
 
 })
 
@@ -93,10 +88,8 @@ const deleteCampaign = asyncHandler(async (req, res) => {
 })
 
 const campaignStats = asyncHandler(async (req, res) => {
-    console.log("first")
     const date = new Date();
     const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
-
     const data = await Campaign.aggregate([
         { $match: { createdAt: { $gte: lastYear } } },
         {
@@ -116,8 +109,7 @@ const campaignStats = asyncHandler(async (req, res) => {
 
     });
     res.status(200).json(newData)
-}
-);
+})
 
 module.exports = {
     getCampaigns,

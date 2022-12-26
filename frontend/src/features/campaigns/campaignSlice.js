@@ -71,6 +71,7 @@ export const campaignSlice = createSlice({
             state.isSuccess = true
             state.isError = false
             state.campaigns.push(action.payload)
+            console.log(action.payload);
           })
         .addCase(createCampaign.rejected, (state, action) => {
              state.isLoading = false
@@ -107,6 +108,22 @@ export const campaignSlice = createSlice({
              state.isError = true
              state.message = action.payload
         })
+        .addCase(updateCampaign.pending, (state) => {
+          state.isLoading = true
+      })
+      .addCase(updateCampaign.fulfilled, (state, action) => {
+          state.isLoading = false
+          state.isSuccess = true
+          state.isError = false
+          const index = state.campaigns.findIndex((campaign) => campaign._id === action.payload.campaignId)
+          console.log(index);
+          state.campaigns[index] = action.payload.newCmapaign
+        })
+      .addCase(updateCampaign.rejected, (state, action) => {
+           state.isLoading = false
+           state.isError = true
+           state.message = action.payload
+      })
     } 
 })
 

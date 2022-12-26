@@ -2,7 +2,9 @@ import './DisplayUser.css'
 import { useState } from 'react'
 import logo from './img_avatar.png'
 import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 const DisplayUser = ({user}) => {
+    const navigate = useNavigate()
     const [imagePath, setImagePath] = useState(user?.file)
     const updateImage = () => {
         if (user?.file) {
@@ -16,6 +18,7 @@ const DisplayUser = ({user}) => {
     },[])
   return (
     <div className='secondMainContainer'>
+        <Link to= {`/userinfo/${user._id}`} state={user}>
         <div className='d-flex align-items-center miniContainer'>
         <div className='imgContainer'>
                 <img className='imgLogo' src={user.file ? `http://localhost:5000/${imagePath}` : logo} />
@@ -26,6 +29,7 @@ const DisplayUser = ({user}) => {
             </div>
 
         </div>
+        </Link>
     </div>
   )
 }
