@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Tabz from './components/Tabz/Tabz';
 import Profile from './pages/Profile/Profile';
+import SingleCampaign from './pages/SingleCampaign/SingleCampaign';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path ='/' element={<LandingPage />} />
       <Route path ='/campaign' element={<Tabz />} />
         <Route path ='/profile' element={<Profile />} />
+        <Route path ='/singlecampagin/:id' element={<SingleCampaign />} />
 
       </Routes>
     </div>

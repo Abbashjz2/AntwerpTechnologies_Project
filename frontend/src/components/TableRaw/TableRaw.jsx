@@ -2,9 +2,11 @@ import { GrClone } from 'react-icons/gr'
 import { FiTrash } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux'
 import { createCampaign, deleteCampaign, updateCampaign } from '../../features/campaigns/campaignSlice'
+import {GrContactInfo} from 'react-icons/gr'
 import { format } from 'date-fns'
 import { toast } from 'react-toastify'
 import './TableRaw.css'
+import { Link } from 'react-router-dom'
 
 const TableRaw = ({ data }) => {
     const { user } = useSelector(
@@ -47,18 +49,22 @@ const TableRaw = ({ data }) => {
 
     return (
         <tr>
+
             <th scope='row'>{data.id}</th>
             <td>{data.name}</td>
             <td>{data.users.map((item) => <div>{item}</div>)}</td>
             <td>{data.type}</td>
             <td>{format(new Date(data.createdAt), 'MM/dd/yyyy')}</td>
-            {data.isClonned ? <td><GrClone className='clonnedItem' onClick={cloneClonned} /></td> : <td ><GrClone className='tableIcon1' onClick={cloneItem} /></td>}
+            {data.isClonned ? <td><GrClone className='clonnedItem tableIcon' onClick={cloneClonned} /></td> : <td ><GrClone className='tableIcon1' onClick={cloneItem} /></td>}
             {
                 user._id.toString() === data.user.toString() ? 
                 <td ><FiTrash onClick={() => dispatch(deleteCampaign(data._id))} className='tableIcon' /></td> 
                 : 
                 <td ><FiTrash onClick={() => toast.error('This is not your campaign')} className='tableIcon clonnedItem' /></td>
             }
+            <td>
+            <Link to= {`/singlecampagin/${data._id}`} ><GrContactInfo style={{fontSize:'25px',}} className='tableIcon'/></Link>
+            </td>
         </tr>
     )
 }

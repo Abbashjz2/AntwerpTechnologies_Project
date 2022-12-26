@@ -123,6 +123,7 @@ const CampaignTable = () => {
             <th scope='col' onClick={sortByDate}><div style={{ cursor: 'pointer' }}><span style={{ marginRight: 10 }}>Date</span> {sorted.sorted === "date" ? renderArrow() : null}</div></th>
             <th scope='col'>Clone</th>
             <th scope='col'>Delete</th>
+            <th scope='col'>Info</th>
           </tr>
         </thead>
         <tbody>

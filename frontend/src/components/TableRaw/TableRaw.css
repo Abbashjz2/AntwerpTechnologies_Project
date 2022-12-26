@@ -5,10 +5,13 @@
 
 .tableIcon {
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
+    margin-top: 4px;
  }
  .tableIcon1 {
    cursor: pointer;
+   font-size: 22px;
+   margin-top: 4px;
    
 }
  .tableIcon:hover,
