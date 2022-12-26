@@ -23,6 +23,10 @@
 .secondMainContainer:hover{
     transform:  scale(1.05);
     margin-bottom: 50px;
+}
 
-
+.secondMainContainer > a {
+    color: #000;
+    all: unset;
+    font-weight: bold;
 }

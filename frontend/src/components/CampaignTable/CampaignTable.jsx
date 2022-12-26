@@ -47,7 +47,7 @@ const CampaignTable = () => {
     setSearchCampaign(e.target.value);
     setData(matchedCampaign);
   };
-
+  
   const sortByDate = () => {
     const dataCopy = [...data];
     dataCopy.sort((campaignA, campaignB) => {
@@ -113,7 +113,7 @@ const CampaignTable = () => {
         </select>
         <AddCampaign key={0}/>
       </div>
-      <table className="table table-striped mt-3">
+      <table className="table table-striped mt-3 tableScale">
         <thead>
           <tr>
             <th scope='col' onClick={sortById}><div style={{ cursor: 'pointer', maxWidth: 'max-content' }}><span style={{ marginRight: 10 }}>Id</span>{sorted.sorted === "id" ? renderArrow() : null}</div></th>

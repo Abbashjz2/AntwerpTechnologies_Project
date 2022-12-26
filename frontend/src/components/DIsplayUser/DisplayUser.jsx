@@ -17,15 +17,15 @@ const DisplayUser = ({user}) => {
         updateImage()
     },[])
   return (
-    <div className='secondMainContainer'>
+    <div className='secondMainContainer' style={{cursor:"pointer"}}>
         <Link to= {`/userinfo/${user._id}`} state={user}>
         <div className='d-flex align-items-center miniContainer'>
         <div className='imgContainer'>
                 <img className='imgLogo' src={user.file ? `http://localhost:5000/${imagePath}` : logo} />
             </div>
             <div>
-        <h5>User Email: {user.email}</h5>
-        <h5>User Name: {user.name}</h5>
+        <h5>Email: {user.email}</h5>
+        <h5>Name: {user.name}</h5>
             </div>
 
         </div>

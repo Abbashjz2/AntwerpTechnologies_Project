@@ -50,7 +50,7 @@ const updateCampaign = asyncHandler(async (req, res) => {
 
     if (!campaign) {
         res.status(400)
-        throw new Error("Goal Not found")
+        throw new Error("Campagin Not found")
 
     }
 

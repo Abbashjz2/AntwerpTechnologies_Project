@@ -9,3 +9,34 @@
 .mr-5{
     margin-right: 30px;
 }
+
+  .custom{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .uploadImg{
+    padding: 0px;
+    margin-top: 10px;
+  }
+  .uploadIcon{
+    position: absolute;
+    right: 0;
+    left: 10;
+    font-size: 20px;
+  }
+  .img-thumb{
+    width: 100%;
+    height: 100%;
+  }
+  .uploadTag{
+    position: absolute;
+    bottom: 30px;
+    left: 65px;
+    font-size: 20px;
+    font-weight: bold;
+  }

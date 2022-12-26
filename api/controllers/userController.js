@@ -23,7 +23,6 @@ const getAll = asyncHandler(async (req, res) => {
     res.status(200).json(users)
 })
 const registerUser = asyncHandler(async (req, res) => {
-
     const { name, email, password, gender, company } = req.body
 
     if (!name || !email || !password || !gender || !company) {
@@ -39,27 +38,61 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-
-    const user = await User.create({
-        name,
-        email,
-        password: hashedPassword,
-        gender,
-        company,
-    })
-    if (user) {
-        res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            gender: user.gender,
-            company: user.company,
-            createdAt: user.createdAt,
-            token: generateToken(user._id)
+    if (req.file) {
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            gender,
+            company,
+            file: {
+                fileName: req.file.originalname,
+                filePath: req.file.path,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2)
+            },
         })
+
+
+        if (user) {
+            res.status(201).json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                gender: user.gender,
+                company: user.company,
+                file: user.file?.filePath,
+                createdAt: user.createdAt,
+                token: generateToken(user._id)
+            })
+        } else {
+            res.status(400)
+            throw new Error('Invalid user data')
+        }
     } else {
-        res.status(400)
-        throw new Error('Invalid user data')
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            gender,
+            company,
+            file: null
+        })
+        if (user) {
+            res.status(201).json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                gender: user.gender,
+                company: user.company,
+                createdAt: user.createdAt,
+                file:null,
+                token: generateToken(user._id)
+            })
+        } else {
+            res.status(400)
+            throw new Error('Invalid user data')
+        }
     }
 })
 
@@ -121,8 +154,8 @@ const updateUsers = asyncHandler(async (req, res) => {
             },
         }
         const updatedUser = await User.findByIdAndUpdate(req.params.id, itemToData, { new: true })
-        res.status(200).json( newItem)
-    }  
+        res.status(200).json(newItem)
+    }
     else if (!req.file && user.file) {
         const newItem = {
             _id: user.id,

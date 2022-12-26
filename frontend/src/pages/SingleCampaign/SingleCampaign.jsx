@@ -18,19 +18,19 @@ const SingleCampaign = () => {
     const { allUsers } = useSelector(
         (state) => state.auth
     )
-  
     const fetchUser = () => {
       campaign?.users?.map((user1) => {
           allUsers?.map((user2) => {
             if(user1?.toString() === user2?._id?.toString()){ 
               usersMentioned.push(user2)
-              console.log("object");
+              
               }
             })
           })
+
         }
+        const [usersMentioned, setUsersMentioned] =useState([]) 
         
-    const [usersMentioned, setUsersMentioned] =useState([]) 
     useEffect(() => {
 
         const getCampaign = async (req,res) => {
@@ -49,11 +49,12 @@ const SingleCampaign = () => {
           };
           getCampaign()
  
-         
+          
           
       disspatch(getUsers()) 
     },[disspatch])
     fetchUser()
+    const userMentionedSet = [...new Set(usersMentioned)]
     return (
         <>
         <Header/>
@@ -74,7 +75,7 @@ const SingleCampaign = () => {
         <div className='rightSide'>
           <div className='detailsRight'>
           <h2>Users: </h2>
-          {usersMentioned.map((user,index) => (
+          {userMentionedSet.map((user,index) => (
             <DisplayUser user={user} key={user._id}/>
           ))}
            <div className='listItem'>

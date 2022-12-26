@@ -15,13 +15,11 @@ function App() {
     <Router>
     <div className="App">
       <Routes>
-
-      {/* <Route path ='/' element={<Header/>} /> */}
       <Route path ='/' element={<LandingPage />} />
       <Route path ='/campaign' element={<Tabz />} />
-        <Route path ='/profile' element={<Profile />} />
-        <Route path ='/singlecampagin/:id' element={<SingleCampaign />} />
-        <Route path ='/userinfo/:id' element={<UserPorfile />} />
+      <Route path ='/profile' element={<Profile />} />
+      <Route path ='/singlecampagin/:id' element={<SingleCampaign />} />
+      <Route path ='/userinfo/:id' element={<UserPorfile />} />
 
       </Routes>
     </div>

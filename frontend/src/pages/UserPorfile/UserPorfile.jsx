@@ -1,5 +1,5 @@
-import axios from 'axios'
-import {  formatDistance, subDays } from 'date-fns'
+
+import {  format, formatDistance, subDays } from 'date-fns'
 import Logo from './img_avatar.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -61,8 +61,8 @@ const UserPorfile = () => {
                           <h6 className="text-muted f-w-400">{user.company}</h6>
                         </div>
                         <div className="col-sm-6">
-                          <p className="m-b-10 f-w-600">Campaigns</p>
-                          <h6 className="text-muted f-w-400">{formatDistance(subDays(new Date(user.createdAt), 3), new Date(user.createdAt), { addSuffix: true })}</h6>
+                          <p className="m-b-10 f-w-600">Created In</p>
+                          <h6 className="text-muted f-w-400">{format(new Date(user.createdAt), 'MM/dd/yyyy')}</h6>
                         </div>
                       </div>
                       <ul className="social-link list-unstyled m-t-40 m-b-10">
