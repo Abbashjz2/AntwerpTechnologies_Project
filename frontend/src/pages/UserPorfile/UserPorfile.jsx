@@ -10,7 +10,9 @@ import './UserPorfile.css'
 const UserPorfile = () => {
   const location = useLocation()
   const params = useParams()
-  const [user, setUser] = useState(location.state)
+  const [user, setUser] = useState(location.state.userOwned)
+  const [allCampaignPerUser, setAllCampaignPerUser] = useState([])
+  const [removeDuplicate, setRemoveDuplicate] = useState([])
   const [imagePath, setImagePath] = useState(user?.file)
   const updateImage = () => {
       if (user?.file) {
@@ -21,6 +23,16 @@ const UserPorfile = () => {
   }
   useEffect(() => {
       updateImage()
+      const getUserCampaign = () => {
+        location.state.campaigns.map((campaign) => {
+          if(campaign.user.toString() === user._id.toString()){
+            removeDuplicate.push(campaign)
+          }   
+        })
+        setAllCampaignPerUser([...new Set(removeDuplicate)])
+      } 
+
+      getUserCampaign()
   },[])
   return (
     <div>
@@ -65,11 +77,13 @@ const UserPorfile = () => {
                           <h6 className="text-muted f-w-400">{format(new Date(user.createdAt), 'MM/dd/yyyy')}</h6>
                         </div>
                       </div>
-                      <ul className="social-link list-unstyled m-t-40 m-b-10">
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i className="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i className="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i className="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                      </ul>
+                      <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Campaign</h6>
+                      <div className="row">
+                        <div className="col-sm-12">
+                          <p className="m-b-10 f-w-600">Campaign:</p>
+                          <h6 className="text-muted f-w-400">{allCampaignPerUser.length} campaigns</h6>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -9,8 +9,11 @@ import './TableRaw.css'
 import { Link } from 'react-router-dom'
 
 const TableRaw = ({ data }) => {
-    const { user } = useSelector(
+    const { user, allUsers } = useSelector(
         (state) => state.auth
+    )
+    const { campaigns } = useSelector(
+        (state) => state.campaigns
     )
     const dispatch = useDispatch()
     const strClone = 'COPY of '
@@ -66,7 +69,7 @@ const TableRaw = ({ data }) => {
                 <td ><FiTrash onClick={() => toast.error('This is not your campaign')} className='tableIcon clonnedItem' /></td>
             }
             <td>
-            <Link to= {`/singlecampagin/${data._id}`} ><GrContactInfo style={{fontSize:'25px',}} className='tableIcon'/></Link>
+            <Link to= {`/singlecampagin/${data._id}`}  state={{campaigns,allUsers}} ><GrContactInfo style={{fontSize:'25px',}} className='tableIcon'/></Link>
             </td>
         </tr>
     )

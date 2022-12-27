@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 
 const AddCampaign = () => {
+    const [exceptCurrent, setExceptCurrent] =useState([])
     const dispatch = useDispatch()
     const { allUsers, user } = useSelector(
         (state) => state.auth
@@ -21,12 +22,22 @@ const AddCampaign = () => {
         if(isSuccess && !isError && message) {
             toast.success('User Added Successfully')
             setAdd(false)
+
         }
+
     },[dispatch,isError,isSuccess,message])
+    const getAllUsersExceptCurrent = () => {
+        allUsers.map((users) => {
+            if(users._id !== user._id){
+                exceptCurrent.push(users)
+            }
+        })
+    }
     const [users, setUsers] = useState([])
     const [id, setId] = useState()
     const [name, setName] = useState('')
     const [type, setType] = useState('')
+    
     const [add, setAdd] = useState(false)
     const [usersToAdd, setUsersToAdd] = useState([])
     const addUser = (e) => {
@@ -40,6 +51,10 @@ const AddCampaign = () => {
                 }
             })
         }
+    }
+    const addNew =() => {
+        setAdd(true)
+        getAllUsersExceptCurrent()
     }
     const removeUser = (user) => {
         const newUser = users.filter((item) => item.toString() !== user.toString())
@@ -71,7 +86,7 @@ const AddCampaign = () => {
     }
     return (
         <div>
-            <button className='btn btn-primary rounded' onClick={() => setAdd(true)}>Add New Campaign</button>
+            <button className='btn btn-primary rounded' onClick={addNew}>Add New Campaign</button>
             {add && <div id="myModal" className="modal">
                 <div className="modal-content w-45">
                     <div className='loginPopUp d-flex justify-content-center flex-column align-items-center'>
@@ -106,7 +121,7 @@ const AddCampaign = () => {
                                 <label for="users" className="col-form-label">Users:<span>*</span></label>
                                 <select className="form-select" required name='users' onChange={addUser}>
                                     <option selected disabled>Select Users</option>
-                                    {allUsers.map((user) => (
+                                    {exceptCurrent.map((user) => (
                                         <option id={user._id} value={[user.name]}>{user.email}</option>
                                     ))}
                                 </select>
