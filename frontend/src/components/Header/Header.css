@@ -25,12 +25,13 @@
 .avatar-li{
     list-style: none;
     border: 1px solid #000;
-    min-width:110px;
+    min-width:150px;
     font-weight: bold;
     text-align: center;
     padding: 6px 10px;
     background-color:lightgrey;
     cursor: pointer;
+    padding: 10px;
 }
 .avatar-li:hover{
     background-color: #0099ff;
@@ -51,4 +52,21 @@
 .iconHeader{
     margin-top: -2px;
     font-size: 20px;
+}
+
+.notificationIcon{
+    font-size: 30px;
+    margin-left: 15px;
+    color: #000;
+}
+
+.btnBgColor{
+    background-color: #d3d3d3; 
+    all: unset;
+    margin-right: 10px;
+}
+
+
+.badgeFont {
+    font-size: 10px !important;
 }

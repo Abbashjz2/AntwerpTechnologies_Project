@@ -3,16 +3,23 @@ import {  format, formatDistance, subDays } from 'date-fns'
 import Logo from './img_avatar.png'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import './UserPorfile.css'
+import { GrView } from 'react-icons/gr'
+import { BiHide } from 'react-icons/bi'
+import { toast } from 'react-toastify'
 
 const UserPorfile = () => {
   const location = useLocation()
   const params = useParams()
   const [user, setUser] = useState(location.state.userOwned)
+  const [allUsers, setallUsers] = useState(location.state.allUsers)
+  const [allCampaigns] = useState(location.state.campaigns)
+  const [mentionedCampaign, setMentionedCampaign] = useState([])
   const [allCampaignPerUser, setAllCampaignPerUser] = useState([])
   const [removeDuplicate, setRemoveDuplicate] = useState([])
+  const [removeDuplicate2, setRemoveDuplicate2] = useState([])
   const [imagePath, setImagePath] = useState(user?.file)
   const updateImage = () => {
       if (user?.file) {
@@ -27,11 +34,21 @@ const UserPorfile = () => {
         location.state.campaigns.map((campaign) => {
           if(campaign.user.toString() === user._id.toString()){
             removeDuplicate.push(campaign)
-          }   
+          }     
         })
         setAllCampaignPerUser([...new Set(removeDuplicate)])
       } 
-      console.log(location.state);
+      const getMentioneCampaign = () => {
+        allCampaigns.map((campaign) => {
+          campaign.users.map((user) => {
+            if(user.toString() === location.state.userOwned._id.toString()){
+              removeDuplicate2.push(campaign)
+            }
+          })
+        })
+        setMentionedCampaign([...new Set(removeDuplicate2)])
+      }
+      getMentioneCampaign()
       getUserCampaign()
   },[])
   return (
@@ -79,9 +96,23 @@ const UserPorfile = () => {
                       </div>
                       <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Campaign</h6>
                       <div className="row">
-                        <div className="col-sm-12">
+                        <div className="col-sm-6">
                           <p className="m-b-10 f-w-600">Campaign:</p>
-                          <h6 className="text-muted f-w-400">{allCampaignPerUser.length} campaigns</h6>
+                          <h6 className="text-muted f-w-400">{allCampaignPerUser.length} campaigns 
+                          {allCampaignPerUser.length > 0 ? <Link to={`/user-campaign/${user._id}`} state={{allCampaignPerUser,user,allUsers}}><GrView className='viewIcon'/></Link> 
+                          :
+                          <BiHide className='viewIcon' onClick={() => toast.warning('User don\'t have any campaign to see it')}/> 
+                        }
+                          </h6>
+                        </div>
+                        <div className="col-sm-6">
+                          <p className="m-b-10 f-w-600">Mentioned Campaign:</p>
+                          <h6 className="text-muted f-w-400">{mentionedCampaign.length} campaigns 
+                          {mentionedCampaign.length > 0 ? <Link to={`/user-campaign/${user._id}`} state={{mentionedCampaign,user,allUsers}}><GrView className='viewIcon'/></Link> 
+                          :
+                          <BiHide className='viewIcon' onClick={() => toast.warning('User don\'t have any campaign to see it')}/> 
+                        }
+                          </h6>
                         </div>
                       </div>
                     </div>

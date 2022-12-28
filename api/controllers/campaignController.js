@@ -1,5 +1,6 @@
 const Campaign = require('../models/campaignModel')
 const user = require('../models/userModel')
+const User = require('../models/userModel')
 const asyncHandler = require('express-async-handler')
 
 const getCampaigns = asyncHandler(async (req, res) => {
@@ -15,6 +16,7 @@ const getCampagin = asyncHandler(async (req, res) => {
 })
 
 const setCampaign = asyncHandler(async (req, res) => {
+    
     if (!req.body.id || !req.body.name || !req.body.type || !req.body.user || !req.body.users) {
         res.status(400)
         throw new Error('Please Enter All field type')
@@ -41,9 +43,27 @@ const setCampaign = asyncHandler(async (req, res) => {
         type,
         isClonned,
         user,
-        users
+        users,
+    })
+
+    const updated = () => {
+         req.body.users.map(async (user) => {
+        const isUserExists = await User.findById({ _id: user })
+        if (isUserExists) {
+            const updateNotification = await User.findByIdAndUpdate(user, {
+                $set: {
+                    notification: {
+                        isNotification: true,
+                        campaign: campaign
+                    }
+                }
+            }, { new: true })
+        }
     })
     res.status(200).json(campaign)
+    
+}
+updated()
 })
 const updateCampaign = asyncHandler(async (req, res) => {
     const campaign = await Campaign.findById(req.params.id)
@@ -60,7 +80,7 @@ const updateCampaign = asyncHandler(async (req, res) => {
     }
     const updatedCampaign = await Campaign.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json({
-        newCmapaign : updatedCampaign,
+        newCmapaign: updatedCampaign,
         campaignId: req.params.id
     })
 

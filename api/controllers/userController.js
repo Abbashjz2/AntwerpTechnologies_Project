@@ -112,6 +112,7 @@ const loginUser = asyncHandler(async (req, res) => {
             company: user.company,
             createdAt: user.createdAt,
             file: user.file?.filePath,
+            notification: user.notification,
             token: generateToken(user._id)
         })
     } else {

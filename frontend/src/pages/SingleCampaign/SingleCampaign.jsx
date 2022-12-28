@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import DisplayUser from '../../components/DIsplayUser/DisplayUser';
 import Header from '../../components/Header/Header';
-import { TOKEN } from '../../CustomRequest'
 import './SingleCampaign.css'
 const SingleCampaign = () => {
   const location = useLocation()
@@ -14,7 +13,7 @@ const SingleCampaign = () => {
   const [campaign, setCampaign] = useState([])
   const [campaigns, setCampaigns] = useState(location.state.campaigns)
   const [allUsers, setAllUsers] = useState(location.state.allUsers)
-  const [userOwned, setUserOwned] = useState(location.state.allUsers)
+  const [userOwned, setUserOwned] = useState(location.state?.allUsers)
   const [usersMentioned, setUsersMentioned] = useState([])
   const fetchUser = () => {
     campaign?.users?.map((user1) => {
@@ -59,7 +58,7 @@ const SingleCampaign = () => {
       <div className='containter mainContainer'>
         <h1><b>Campaign Details:</b></h1>
         <div className='mt-3'>
-        <Link to= {`/userinfo/${userOwned._id}`} state={{userOwned,campaigns}}><h2><b>Campaign Owner: {userOwned.name}</b></h2></Link>
+        <Link to= {`/userinfo/${userOwned._id}`} state={{userOwned,campaigns,allUsers}}><h2><b>Campaign Owner: {userOwned.name}</b></h2></Link>
         </div>
         <div className='d-flex'>
           <div className='leftSide w-50'>
@@ -77,7 +76,7 @@ const SingleCampaign = () => {
             <div className='detailsRight'>
               <h2>Users: </h2>
               {userMentionedSet.map((user, index) => (
-                <DisplayUser campaigns={campaigns} user={user} key={user._id} />
+                <DisplayUser allUsers={allUsers} campaigns={campaigns} user={user} key={user._id} />
               ))}
               <div className='listItem'>
 

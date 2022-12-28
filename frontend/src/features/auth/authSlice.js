@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import authService from './authService'
-
+import { createCampaign } from '../campaigns/campaignSlice'
 //Get user from localStorage
 const user = JSON.parse(localStorage.getItem('user'))
 
@@ -125,10 +125,35 @@ export const authSlice = createSlice({
           state.message = action.payload
           state.user = null
         })
+        .addCase(createCampaign.pending, (state) => {
+          state.isLoading = true
+        })
+        .addCase(createCampaign.fulfilled, (state, action) => {
+          state.isLoading = false
+          state.isSuccess = true
+          action.payload.users.map((user) => {
+            // console.log(user)
+            state.allUsers.map((allUser) => {
+              if(user.toString() === allUser._id.toString()) {
+                const index = state.allUsers.findIndex((u) => u._id === user)
+                state.allUsers[index].notification.isNotification = true
+                state.allUsers[index].notification.campaign.push(action.payload)
+                // state.allUsers[index]
+              }
+            })
+          })
+        })
+        .addCase(createCampaign.rejected, (state, action) => {
+          state.isLoading = false
+          state.isError1 = true
+          console.log(action.payload)
+
+        })
         .addCase(logout.fulfilled, (state) => {
             state.user = null
             state.allUsers = null
           })
+
           
     },
   })

@@ -142,3 +142,9 @@ p {
 }
 
 
+.viewIcon{
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 3px;
+    font-size: 20px;
+}

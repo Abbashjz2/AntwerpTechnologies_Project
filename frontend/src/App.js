@@ -6,6 +6,8 @@ import Tabz from './components/Tabz/Tabz';
 import Profile from './pages/Profile/Profile';
 import SingleCampaign from './pages/SingleCampaign/SingleCampaign';
 import UserPorfile from './pages/UserPorfile/UserPorfile';
+import UserCampaign from './pages/UserCampaign/UserCampaign';
+import NotificationPage from './pages/NotificationPage/NotificationPage';
 
 
 function App() {
@@ -20,7 +22,8 @@ function App() {
       <Route path ='/profile' element={<Profile />} />
       <Route path ='/singlecampagin/:id' element={<SingleCampaign />} />
       <Route path ='/userinfo/:id' element={<UserPorfile />} />
-
+      <Route path ='/user-campaign/:id' element={<UserCampaign />} />
+      <Route path ='/notification' element={<NotificationPage />} />
       </Routes>
     </div>
     </Router>

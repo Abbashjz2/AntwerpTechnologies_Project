@@ -1,0 +1,32 @@
+.notfication-container {
+    box-shadow: 2px 4px 5px 0px rgba(156, 156, 156, 0.75);
+    width: 80%;
+    padding: 10px 5px;
+    margin: 30px;
+    border-radius: 30px;
+}
+
+.notification {
+    min-height: 50px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+    background: rgb(238, 174, 202);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    color: white;
+    font-weight:bold;
+    font-size: 20px;
+}
+
+.notification:hover{
+    background: none;
+    background-color: white;
+    color: #000;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.notification:active{
+    transform: translateY(2px);
+    user-select: none;
+}
