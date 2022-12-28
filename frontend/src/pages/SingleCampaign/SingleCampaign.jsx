@@ -77,7 +77,7 @@ const SingleCampaign = () => {
             <div className='detailsRight'>
               <h2>Users: </h2>
               {userMentionedSet.map((user, index) => (
-                <DisplayUser user={user} key={user._id} />
+                <DisplayUser campaigns={campaigns} user={user} key={user._id} />
               ))}
               <div className='listItem'>
 

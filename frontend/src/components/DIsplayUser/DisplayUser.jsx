@@ -3,9 +3,10 @@ import { useState } from 'react'
 import logo from './img_avatar.png'
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-const DisplayUser = ({user}) => {
+const DisplayUser = ({user, campaigns}) => {
     const navigate = useNavigate()
     const [imagePath, setImagePath] = useState(user?.file)
+    const [userOwned, setUserOwned] = useState(user)
     const updateImage = () => {
         if (user?.file) {
             let api = "api\\"
@@ -18,7 +19,7 @@ const DisplayUser = ({user}) => {
     },[])
   return (
     <div className='secondMainContainer' style={{cursor:"pointer"}}>
-        <Link to= {`/userinfo/${user._id}`} state={user}>
+        <Link to= {`/userinfo/${user._id}`} state={{userOwned,campaigns}}>
         <div className='d-flex align-items-center miniContainer'>
         <div className='imgContainer'>
                 <img className='imgLogo' src={user.file ? `http://localhost:5000/${imagePath}` : logo} />
