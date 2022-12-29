@@ -37,7 +37,7 @@ const setCampaign = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Name already exist, please change it')
     }
-    const campaign = await Campaign.create({
+    const newCampaign = await Campaign.create({
         id,
         name,
         type,
@@ -50,18 +50,16 @@ const setCampaign = asyncHandler(async (req, res) => {
          req.body.users.map(async (user) => {
         const isUserExists = await User.findById({ _id: user })
         if (isUserExists) {
-            const updateNotification = await User.findByIdAndUpdate(user, {
-                $set: {
+            const updateNotification = await User.findOneAndUpdate({"_id":user}, {
+                $push: {
                     notification: {
-                        isNotification: true,
-                        campaign: campaign
+                        "campaign": newCampaign
                     }
-                }
-            }, { new: true })
+                }   
+            }, {safe: true, upsert: true, new: true})
         }
     })
-    res.status(200).json(campaign)
-    
+    res.status(200).json(newCampaign)
 }
 updated()
 })

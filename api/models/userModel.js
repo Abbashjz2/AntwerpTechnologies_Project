@@ -26,14 +26,13 @@ const userSchema = mongoose.Schema({
     file: {
         type: Object
     },
-    notification: {
-        isNotification: {
-            type: Boolean
-        },
-        campaign: {
-            type: Array
+    notification: [
+        {
+            campaign: {
+                type: Object
+            }
         }
-    }
+    ]
 },
     {
         timestamps: true,

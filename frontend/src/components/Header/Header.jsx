@@ -14,7 +14,8 @@ import { logout } from '../../features/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 const Header = () => {
-    const { user } = useSelector((state) => state.auth)
+    const { user,allUsers } = useSelector((state) => state.auth)
+    const { campaigns } = useSelector((state) => state.campaigns)
     const [imagePath, setImagePath] = useState(user?.file)
     const dispatch = useDispatch()
     const [log, setLog] = useState(false)
@@ -59,13 +60,13 @@ const Header = () => {
                             <ul className='avatar-ul w-100 d-flex flex-column justify-content-center align-items-center'>
                                 <li className='avatar-li' onClick={() => navigate('/profile')}><AiFillProfile className='iconHeader' /> Profile</li>
                                 <li className='avatar-li' onClick={onLogOut}><BiLogOut className='iconHeader' /> Logout</li>
-                                <Link to='/notification' state={user}>
+                                <Link to='/notification' state={{user,campaigns,allUsers}}>
                                     <li onClick={navigate} className='avatar-li'>
 
                                         <button type="button" class="btnBgColor position-relative">
                                             <GrNotification className='iconHeader' />
                                             <span class="position-absolute top-0 start-100 badgeFont translate-middle badge rounded-pill bg-danger">
-                                                {user?.notification?.campaign.length > 0 ?  user?.notification?.campaign.length : null}
+                                                {user?.notification?.length > 0 ?  user?.notification?.length : null}
                                             </span>
                                         </button>Notification</li>
                                 </Link>

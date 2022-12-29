@@ -70,3 +70,7 @@
 .badgeFont {
     font-size: 10px !important;
 }
+
+.avatar-ul a{
+    all: unset;
+}

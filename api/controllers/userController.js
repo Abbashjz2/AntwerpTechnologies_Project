@@ -86,7 +86,7 @@ const registerUser = asyncHandler(async (req, res) => {
                 gender: user.gender,
                 company: user.company,
                 createdAt: user.createdAt,
-                file:null,
+                file: null,
                 token: generateToken(user._id)
             })
         } else {
@@ -138,6 +138,7 @@ const updateUsers = asyncHandler(async (req, res) => {
             company,
             email,
             createdAt: user.createdAt,
+            notification: user.notification,
             file: req.file.path,
             token: generateToken(user._id)
         }
@@ -206,6 +207,31 @@ const updateUsers = asyncHandler(async (req, res) => {
         res.status(200).json(newItem)
     }
 })
+
+const removeNotification = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    // console.log(user._id)
+    // console.log(req.user)
+    // console.log(user)
+    console.log(req.body)
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+    if (user._id.toString() !== req.user._id.toString()) {
+
+        res.status(401)
+        throw new Error('User not authorized')
+
+    }
+    await User.findOneAndUpdate({"_id":req.params.id}, {
+        $pull: {
+            notification: {_id: req.body.id}
+        }   
+    }, {safe: true, upsert: true, new: true})
+
+    res.status(200).json({id: req.body.id})
+})
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "30d"
@@ -216,5 +242,6 @@ module.exports = {
     loginUser,
     getAll,
     updateUsers,
-    findUser
+    findUser,
+    removeNotification
 }

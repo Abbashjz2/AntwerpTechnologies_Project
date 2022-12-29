@@ -51,6 +51,20 @@ const updateUser = async (userData, token) => {
 
 
 }
+const removeNotification = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+    console.log(config)
+    const URL = API_URL + 'remove-notification/' + data.userId
+    const response = await axios.put(URL, data, config)
+
+  return response.data
+
+
+}
 
 const logout =  () => {
     localStorage.removeItem('user')
@@ -61,7 +75,8 @@ const authService = {
     getUsers,
     logout,
     login,
-    updateUser
+    updateUser,
+    removeNotification
 }
 
 export default authService

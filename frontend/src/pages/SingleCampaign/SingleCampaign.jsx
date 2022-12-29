@@ -25,6 +25,8 @@ const SingleCampaign = () => {
     })
   }
   useEffect(() => {
+
+    console.log(location.state);
     const getCampaign = () => {
       campaigns.map((campaign) => { 
         if(campaign._id.toString() === params.id.toString()){
