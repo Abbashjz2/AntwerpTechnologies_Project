@@ -17,6 +17,10 @@ const findUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ _id: req.params.id })
     res.status(200).json(user)
 })
+const getMessages = asyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.params.id })
+    res.status(200).json(user.messages)
+})
 
 const getAll = asyncHandler(async (req, res) => {
     const users = await User.find()
@@ -62,7 +66,9 @@ const registerUser = asyncHandler(async (req, res) => {
                 gender: user.gender,
                 company: user.company,
                 file: user.file?.filePath,
+                messages: user.messages,
                 createdAt: user.createdAt,
+                notification: user.notification,
                 token: generateToken(user._id)
             })
         } else {
@@ -86,6 +92,8 @@ const registerUser = asyncHandler(async (req, res) => {
                 gender: user.gender,
                 company: user.company,
                 createdAt: user.createdAt,
+                notification: user.notification,
+                messages: user.messages,
                 file: null,
                 token: generateToken(user._id)
             })
@@ -111,7 +119,8 @@ const loginUser = asyncHandler(async (req, res) => {
             gender: user.gender,
             company: user.company,
             createdAt: user.createdAt,
-            file: user.file?.filePath,
+            file: user.file,
+            messages: user.messages,
             notification: user.notification,
             token: generateToken(user._id)
         })
@@ -139,7 +148,13 @@ const updateUsers = asyncHandler(async (req, res) => {
             email,
             createdAt: user.createdAt,
             notification: user.notification,
-            file: req.file.path,
+            messages: user.messages,
+            file: {
+                fileName: req.file.originalname,
+                filePath: req.file.path,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2)
+            },
             token: generateToken(user._id)
         }
         const itemToData = {
@@ -166,7 +181,14 @@ const updateUsers = asyncHandler(async (req, res) => {
             company,
             email,
             createdAt: user.createdAt,
-            file: user.file.filePath,
+            file: {
+                fileName: req.file.originalname,
+                filePath: req.file.path,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2)
+            },
+            notification: user.notification,
+            messages: user.messages,
             token: generateToken(user._id)
         }
         const itemToData = {
@@ -190,6 +212,8 @@ const updateUsers = asyncHandler(async (req, res) => {
             gender,
             company,
             email,
+            notification: user.notification,
+            messages: user.messages,
             createdAt: user.createdAt,
             file: null,
             token: generateToken(user._id)
@@ -210,10 +234,6 @@ const updateUsers = asyncHandler(async (req, res) => {
 
 const removeNotification = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
-    // console.log(user._id)
-    // console.log(req.user)
-    // console.log(user)
-    console.log(req.body)
     if (!req.user) {
         res.status(401)
         throw new Error('User not found')
@@ -232,6 +252,33 @@ const removeNotification = asyncHandler(async (req, res) => {
 
     res.status(200).json({id: req.body.id})
 })
+
+const updateInbox = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.body.sender)
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+    if (user._id.toString() !== req.user._id.toString()) {
+        res.status(401)
+        throw new Error('User not authorized')
+
+    }
+    const d = new Date();
+    await User.findOneAndUpdate({"_id":req.body.sender}, {
+        $push: {
+                "messages": req.body
+
+        }   
+    }, {safe: true, upsert: true, new: true})
+
+    const inboxUpdated =  await User.findOneAndUpdate({"_id": req.body.sendTo}, {
+        $push: {
+                "messages": req.body
+        }   
+    }, {safe: true, upsert: true, new: true})
+    res.status(200).json(req.body)
+})
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "30d"
@@ -243,5 +290,7 @@ module.exports = {
     getAll,
     updateUsers,
     findUser,
-    removeNotification
+    removeNotification,
+    updateInbox,
+    getMessages
 }

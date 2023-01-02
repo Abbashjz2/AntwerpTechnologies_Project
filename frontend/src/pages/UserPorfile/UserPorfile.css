@@ -148,3 +148,17 @@ p {
     margin-bottom: 3px;
     font-size: 20px;
 }
+.inboxIcon{
+    font-size: 30px;
+    position: relative;
+    top: -15px;
+    right: -15px;
+    cursor: pointer;
+}
+.inboxIcon:hover{
+    color: #000;
+    transform: scale(1.1);
+}
+.unsetLink a {
+    all:unset
+}

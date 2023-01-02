@@ -8,7 +8,7 @@ import SingleCampaign from './pages/SingleCampaign/SingleCampaign';
 import UserPorfile from './pages/UserPorfile/UserPorfile';
 import UserCampaign from './pages/UserCampaign/UserCampaign';
 import NotificationPage from './pages/NotificationPage/NotificationPage';
-
+import Message from './pages/Messages/Message';
 
 function App() {
 
@@ -24,6 +24,7 @@ function App() {
       <Route path ='/userinfo/:id' element={<UserPorfile />} />
       <Route path ='/user-campaign/:id' element={<UserCampaign />} />
       <Route path ='/notification' element={<NotificationPage />} />
+      <Route path ='/inbox' element={<Message />} />
       </Routes>
     </div>
     </Router>

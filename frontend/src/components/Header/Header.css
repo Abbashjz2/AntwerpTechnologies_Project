@@ -1,6 +1,8 @@
 .fabtn {
     cursor: pointer;
     user-select: none;
+    color: #000;
+    font-size: 16px;
 }
 
 .fabtn:hover {
@@ -32,6 +34,9 @@
     background-color:lightgrey;
     cursor: pointer;
     padding: 10px;
+    color: black;
+    display: flex;
+    justify-content: flex-start;
 }
 .avatar-li:hover{
     background-color: #0099ff;
@@ -51,8 +56,10 @@
 
 .iconHeader{
     margin-top: -2px;
-    font-size: 20px;
+    font-size: 22px;
+    margin-right: 15px;
 }
+
 
 .notificationIcon{
     font-size: 30px;
@@ -63,14 +70,17 @@
 .btnBgColor{
     background-color: #d3d3d3; 
     all: unset;
-    margin-right: 10px;
 }
 
 
 .badgeFont {
     font-size: 10px !important;
+    left: 60% !important;
 }
 
 .avatar-ul a{
     all: unset;
+}
+h4 {
+    color: #000;
 }

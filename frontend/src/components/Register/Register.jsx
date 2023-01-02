@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import ReactFileReader from 'react-file-reader';
+import {  useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import profile_Picture from './360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
@@ -6,15 +7,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import './Register.css'
 import { register, reset } from '../../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
-import { AiFillEdit } from 'react-icons/ai'
 const Register = ({ setRegister }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { user, isLoading, isError1, isSuccess, message } = useSelector(
         (state) => state.auth
     )
-    const SingleFileChange = (e) => {
+    const [userInfo, setuserInfo] = useState({
+        file:[],
+        filepreview:null,
+       });
+    const SingleFileChange = (e) => {   
         setUploadImage(e.target.files[0]);
+        setuserInfo({
+            ...userInfo,
+            file:e.target.files[0],
+            filepreview:URL.createObjectURL(e.target.files[0]),
+          });
     }
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -22,7 +31,7 @@ const Register = ({ setRegister }) => {
     const [company, setCompany] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
-    const [uploadImage, setUploadImage] = useState(null)
+    const [uploadImage, setUploadImage] = useState(null)  
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -31,6 +40,7 @@ const Register = ({ setRegister }) => {
         password: '',
         passowrd2: ''
     })
+
     const inputFile = useRef(null)
     const onSubmit = (e) => {
         e.preventDefault();
@@ -49,11 +59,11 @@ const Register = ({ setRegister }) => {
             setRegister(false)
             if (isSuccess || user) {
                 navigate('/campaign')
-            }
+            }    
             if (isError1) {
                 navigate('/')
                 dispatch(reset())
-            }
+            }  
         }
     }
     const onButtonClick = () => {
@@ -69,14 +79,15 @@ const Register = ({ setRegister }) => {
                             <div className='mx-1'>
                                 <FaUser />
                             </div><div className='mx-1'> Register
-                            </div>
-                        </div>
+                            </div>  
+                        </div> 
                     </h1>
                     <h4 className='mt-2 text-light'><b>Create Account To Access Compaign List</b></h4>
                 </div>
                 <form onSubmit={onSubmit} className='mt-2'>
-                <div className='custom' type="file" onClick={onButtonClick} onChange={(e) => SingleFileChange(e)}>
-                            <img src={profile_Picture} className='img-thumb'/>
+                    
+                <div className='custom' id="read_url" type="file" onClick={onButtonClick} onChange={(e) => SingleFileChange(e)}>
+                            <img src={userInfo.filepreview ? userInfo.filepreview : profile_Picture} alt="" className='img-thumb'/>
                             <span className='uploadTag'>Upload</span>
                             <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} />
                     </div>

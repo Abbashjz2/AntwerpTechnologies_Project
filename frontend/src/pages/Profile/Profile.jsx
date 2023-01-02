@@ -32,7 +32,7 @@ const Profile = () => {
         if (user.file) {
             let api = "api\\"
 
-            const pathes = user.file.replace(api, '')
+            const pathes = user?.file?.filePath?.replace(api, '')
             setImagePath(pathes)
         }
         else {

@@ -3,14 +3,14 @@ import './Header.css'
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { GrNotification } from 'react-icons/gr'
 import { AiFillProfile } from 'react-icons/ai'
-import { BiLogOut } from 'react-icons/bi'
+import { BiLogOut, BiMessageRounded } from 'react-icons/bi'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import { useSelector, useDispatch } from 'react-redux'
 import Logo from './antwerp-technologie-logo-01-2.png'
 import Avatar from './img_avatar.png'
 import { useState } from 'react'
-import { logout } from '../../features/auth/authSlice'
+import { getMessages, logout } from '../../features/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
     const updateImage = () => {
         if (user?.file) {
             let api = "api\\"
-            const pathes = user.file.replace(api, '')
+            const pathes = user?.file?.filePath?.replace(api, '')
             setImagePath(pathes)
         }
     }
@@ -53,7 +53,7 @@ const Header = () => {
                     : <div className='d-flex flex-column justify-content-center align-items-center mx-3 position-relative'>
                         {/* <button onClick={onLogOut} className='btn btn-primary rounded'><FaSignOutAlt/> Logout</button> */}
                         <div className='d-flex align-items-center' style={{ cursor: 'pointer' }} onClick={() => setDropDown(!dropdown)}>
-                            <div className='px-3 mt-2'><h4>{user.name}</h4></div>
+                            <div className='px-3 mt-2'><h4><b>{user.name}</b></h4></div>
                             <img src={imagePath ? `http://localhost:5000/${imagePath}` : Avatar} className='avatar' />
                         </div>
                         {dropdown && <div className='avatar-div position-absolute'>
@@ -69,6 +69,15 @@ const Header = () => {
                                                 {user?.notification?.length > 0 ?  user?.notification?.length : null}
                                             </span>
                                         </button>Notification</li>
+                                </Link>
+                                <Link to='/inbox' state={{user,campaigns,allUsers}} onClick={() => dispatch(getMessages(user._id))}>
+                                    <li className='avatar-li'>
+                                        <button type="button" class="btnBgColor position-relative">
+                                            <BiMessageRounded className='iconHeader' />
+                                            <span class="position-absolute top-0 start-100 badgeFont translate-middle badge rounded-pill bg-danger">
+                                                {user?.notification?.length > 0 ?  user?.notification?.length : null}
+                                            </span>
+                                        </button>Messages</li>
                                 </Link>
                             </ul>
                         </div>}

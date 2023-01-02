@@ -32,6 +32,11 @@ const userSchema = mongoose.Schema({
                 type: Object
             }
         }
+    ],
+    messages: [
+        {
+            type: Object
+        }
     ]
 },
     {

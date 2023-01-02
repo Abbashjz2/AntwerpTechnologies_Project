@@ -17,9 +17,11 @@
     "axios": "^1.2.1",
     "chart.js": "^4.1.1",
     "date-fns": "^2.29.3",
+    "http": "^0.0.1-security",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.1.0",
     "react-dom": "^18.2.0",
+    "react-file-reader": "^1.1.4",
     "react-icons": "^4.7.1",
     "react-query": "^3.39.2",
     "react-redux": "^8.0.5",
@@ -29,6 +31,8 @@
     "react-toastify": "^9.1.1",
     "react-wavify": "^1.6.3",
     "recharts": "^2.2.0",
+    "socket.io": "^4.5.4",
+    "socket.io-client": "^4.5.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -8,6 +8,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 const initialState = {
   user: user ? user : null,
   allUsers: [],
+  userInbox: user?.messages,
+  switchInbox: "",
   isError1: false,
   isSuccess: false,
   isLoading: false,
@@ -61,6 +63,34 @@ export const removeNotification = createAsyncThunk('user/remove-notification', a
     const message = (error.message && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
   }
+})
+export const sendMessage = createAsyncThunk('user/send-message', async (data, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await authService.sendMessage(data, token)
+  } catch (error) {
+    const message = (error.message && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+export const getMessages = createAsyncThunk('user/get-message', async (id, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await authService.getMessages(id, token)
+  } catch (error) {
+    const message = (error.message && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+export const changeUserInbox = createAsyncThunk('auth/change-inbox', async (data,) => {
+  return await data
+})
+export const goToInbox = createAsyncThunk('auth/go-to-inbox', async (data,) => {
+  return await data
+})
+
+export const getFromSocket = createAsyncThunk('auth/socket-inbox', async (data,) => {
+  return await data
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -142,7 +172,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         action.payload.users.map((user) => {
-          // console.log(user)
+
           state.allUsers.map((allUser) => {
             if (user.toString() === allUser._id.toString()) {
               const index = state.allUsers.findIndex((u) => u._id === user)
@@ -155,7 +185,6 @@ export const authSlice = createSlice({
       .addCase(createCampaign.rejected, (state, action) => {
         state.isLoading = false
         state.isError1 = true
-        console.log(action.payload)
 
       })
       .addCase(logout.fulfilled, (state) => {
@@ -173,8 +202,70 @@ export const authSlice = createSlice({
         localStorage.setItem('user', JSON.stringify(state.user))
 
       })
-
       .addCase(removeNotification.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError1 = true
+        state.message = action.payload
+      })
+      .addCase(changeUserInbox.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(changeUserInbox.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.switchInbox = action.payload
+      })
+      .addCase(changeUserInbox.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError1 = true
+        state.message = action.payload
+      })
+      .addCase(sendMessage.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.userInbox.push(action.payload)
+      })
+      .addCase(sendMessage.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError1 = true
+        state.message = action.payload
+      })
+      .addCase(getFromSocket.pending, (state) => {
+        state.isLoading = true
+      }) 
+      .addCase(getFromSocket.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.userInbox.push(action.payload)
+
+      }) 
+      .addCase(getFromSocket.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError1 = true
+        state.message = action.payload
+      })
+      .addCase(getMessages.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getMessages.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.userInbox = action.payload.messages
+      })
+      .addCase(getMessages.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError1 = true
+        state.message = action.payload
+      })
+      .addCase(goToInbox.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(goToInbox.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.switchInbox = action.payload
+      })
+      .addCase(goToInbox.rejected, (state, action) => {
         state.isLoading = false
         state.isError1 = true
         state.message = action.payload

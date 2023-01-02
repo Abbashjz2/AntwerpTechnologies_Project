@@ -7,15 +7,15 @@ import { useEffect } from 'react'
 
 const UserCampaign = () => {
     const location = useLocation()
-    const {user, allCampaignPerUser, mentionedCampaign, allUsers} = location.state
+    const {user1, allCampaignPerUser, mentionedCampaign, allUsers} = location.state
     useEffect(() => {
         console.log(location.state)
     },[])
     return (
         <div>
             <Header />
-                {allCampaignPerUser ? <h4>You are in the campaign that created by  <b>{user.name}</b></h4> : 
-                <h4>You are in the campaign that mentioned to  <b>{user.name}</b></h4>
+                {allCampaignPerUser ? <h4>You are in the campaign that created by  <b>{user1.name}</b></h4> : 
+                <h4>You are in the campaign that mentioned to  <b>{user1.name}</b></h4>
                 }
             <table className="table table-striped mt-3 tableScale">
                 <thead>

@@ -57,8 +57,32 @@ const removeNotification = async (data, token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-    console.log(config)
     const URL = API_URL + 'remove-notification/' + data.userId
+    const response = await axios.put(URL, data, config)
+
+  return response.data
+
+
+}
+const getMessages = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+    const response = await axios.get(API_URL + id, config)
+
+  return response.data
+
+
+}
+const sendMessage = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+    const URL = API_URL + 'inbox/update-inbox/'
     const response = await axios.put(URL, data, config)
 
   return response.data
@@ -76,7 +100,9 @@ const authService = {
     logout,
     login,
     updateUser,
-    removeNotification
+    removeNotification,
+    sendMessage,
+    getMessages
 }
 
 export default authService

@@ -3,7 +3,6 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 
 const protect = asyncHandler (async (req, res, next) =>{
-    console.log(req.headers.authorization)
     let token
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -29,14 +28,4 @@ const protect = asyncHandler (async (req, res, next) =>{
         throw new Error('Not authorized, no token')
     }
 })
-const isAdmin = asyncHandler (async (req, res, next) =>{
-    if(req.user.isAdmin === true) {
-        return next()
-    } else {
-        res.status(401)
-        throw new Error('Sorry, but You are not an admin')
-    }
-
-})
-
-module.exports = {protect, isAdmin}
+module.exports = {protect}

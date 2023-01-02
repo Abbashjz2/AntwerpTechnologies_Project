@@ -84,13 +84,6 @@ ul
   font-size: 15px;
 }*/
 
-a, a:link, a:visited {
-  text-decoration: none;
-  padding: 9px 15px;
-  border: 1px solid #ececec;
-  border-radius: 5px;
-  color: gray;
-}
 
 .animate {
 	font-size: 50px;
@@ -107,7 +100,6 @@ a.repeat {
   font-size: 12px;
   text-transform: none;
   text-decoration: none;
-  color: orange;
   padding: 5px 12px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   font-weight: normal;
